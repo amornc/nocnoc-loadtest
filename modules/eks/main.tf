@@ -110,7 +110,7 @@ module "eks_blueprints_kubernetes_addons" {
     helm-blue-green = {
       path                = "helm-blue-green"
 #      lint                = true
-      repo_url            = "https://github.com/amornc/argo-rollouts.git"
+      repo_url            = "https://github.com/amornc/nocnoc-loadtest.git"
 #      values              = {}
       add_on_application  = true # Indicates the root add-on application.
 #      add_on_application  = false # Indicates the root add-on application.
