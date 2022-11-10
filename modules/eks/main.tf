@@ -31,7 +31,7 @@ module "eks_blueprints" {
       node_group_name = "managed-spot-ondemand"
 #      instance_types  = ["m5.large"]
       instance_types  = var.instance_types
-      min_size        = 3
+      min_size        = 2
       max_size        = 9
       desired_size    = 3
       subnet_ids      = var.subnet_ids
@@ -95,7 +95,7 @@ module "eks_blueprints_kubernetes_addons" {
   enable_argocd = true
   # This example shows how to set default ArgoCD Admin Password using SecretsManager with Helm Chart set_sensitive values.
   argocd_helm_config = {
-    timeout          = "1200"
+#    timeout          = "1200"
     set_sensitive = [
       {
         name  = "configs.secret.argocdServerAdminPassword"
@@ -123,14 +123,6 @@ module "eks_blueprints_kubernetes_addons" {
       {
         name  = "dashboard.service.type"
         value = "LoadBalancer"
-      },
-      {
-        name  = "controller.metrics.enabled"
-        value = true
-      },
-      {
-        name = "serviceAccount.create"
-        value = true
       },
     ]
   }
