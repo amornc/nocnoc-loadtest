@@ -58,9 +58,9 @@ module "eks_blueprints_kubernetes_addons" {
 
   # EKS Managed Add-ons
   enable_amazon_eks_vpc_cni            = true
-  enable_amazon_eks_coredns            = true
+#  enable_amazon_eks_coredns            = true
   enable_amazon_eks_kube_proxy         = true
-  enable_amazon_eks_aws_ebs_csi_driver = true
+#  enable_amazon_eks_aws_ebs_csi_driver = true
 
   # Add-ons
   enable_aws_load_balancer_controller = true
@@ -107,13 +107,13 @@ module "eks_blueprints_kubernetes_addons" {
   argocd_manage_add_ons = true # Indicates that ArgoCD is responsible for managing/deploying add-ons
 
   argocd_applications     = {
-    blogs-service = {
-      path                = "chart"
-      lint                = true
-      repo_url            = "https://github.com/amornc/nocnoc-loadtest.git"
-      values              = {}
-#      add_on_application  = true # Indicates the root add-on application.
-      add_on_application  = false # Indicates the root add-on application.
+    helm-blue-green = {
+      path                = "helm-blue-green"
+#      lint                = true
+      repo_url            = "https://github.com/amornc/argo-rollouts.git"
+#      values              = {}
+      add_on_application  = true # Indicates the root add-on application.
+#      add_on_application  = false # Indicates the root add-on application.
 
     }
   }
@@ -123,7 +123,7 @@ module "eks_blueprints_kubernetes_addons" {
       {
         name  = "dashboard.service.type"
         value = "LoadBalancer"
-      }
+      },
     ]
   }
 

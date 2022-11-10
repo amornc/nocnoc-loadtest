@@ -8,9 +8,10 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    kubernetes.io/ingress.class: alb
 spec:
-  ingressClassName: alb
-  ingressClassName: nginx
+#  ingressClassName: alb
+#  ingressClassName: nginx
   rules:
 #    - host: {{ .Values.name }}.192.168.1.61.nip.io
     - host:
