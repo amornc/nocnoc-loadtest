@@ -17,7 +17,7 @@ data "aws_eks_cluster_auth" "this" {
 }
 
 module "eks_blueprints" {
-  source = "github.com/aws-ia/terraform-aws-eks-blueprints?ref=v4.14.0"
+  source = "github.com/aws-ia/terraform-aws-eks-blueprints?ref=v4.15.0"
 
 
   cluster_name    = var.cluster_name
@@ -49,7 +49,7 @@ module "eks_blueprints" {
 }
 
 module "eks_blueprints_kubernetes_addons" {
-  source = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/kubernetes-addons?ref=v4.14.0"
+  source = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/kubernetes-addons?ref=v4.15.0"
 
   eks_cluster_id       = module.eks_blueprints.eks_cluster_id
   eks_cluster_endpoint = module.eks_blueprints.eks_cluster_endpoint
@@ -64,10 +64,11 @@ module "eks_blueprints_kubernetes_addons" {
 
   # Add-ons
   enable_aws_load_balancer_controller = true
-  enable_metrics_server               = true
-  enable_aws_cloudwatch_metrics       = true
-  enable_kubecost                     = true
-  enable_kube_prometheus_stack        = true
+  #enable_metrics_server               = true
+  #enable_aws_cloudwatch_metrics       = true
+  #enable_kubecost                     = true
+  #enable_kube_prometheus_stack        = true
+  enable_argo_rollouts                = true
 
   enable_cluster_autoscaler = true
   cluster_autoscaler_helm_config = {
@@ -109,9 +110,21 @@ module "eks_blueprints_kubernetes_addons" {
     blogs-service = {
       path                = "chart"
       lint                = true
-      repo_url            = "https://github.com/amornc/nocnoc-iac.git"
+      repo_url            = "https://github.com/amornc/nocnoc-loadtest.git"
       values              = {}
-      add_on_application  = true # Indicates the root add-on application.
+#      add_on_application  = true # Indicates the root add-on application.
+      add_on_application  = false # Indicates the root add-on application.
+
     }
   }
+  
+  argo_rollouts_helm_config = {    # <-- Add this config to expose as LoadBalancer
+    set = [
+      {
+        name  = "dashboard.service.type"
+        value = "LoadBalancer"
+      }
+    ]
+  }
+
 }
