@@ -124,7 +124,27 @@ module "eks_blueprints_kubernetes_addons" {
         name  = "dashboard.service.type"
         value = "LoadBalancer"
       },
+      {
+        name  = "controller.metrics.enabled"
+        value = true
+      },
+      {
+        name = "serviceAccount.create"
+        value = true
+      },
     ]
+  }
+
+  argo_rollouts_applications     = {
+    helm-blue-green = {
+      path                = "helm-blue-green"
+#      lint                = true
+      repo_url            = "https://github.com/amornc/nocnoc-loadtest.git"
+#      values              = {}
+      add_on_application  = true # Indicates the root add-on application.
+#      add_on_application  = false # Indicates the root add-on application.
+
+    }
   }
 
 }

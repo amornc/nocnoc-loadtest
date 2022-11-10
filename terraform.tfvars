@@ -29,4 +29,4 @@ cluster_version          = "1.23"
 
 cluster_name             = "nocnoc_cluster"
 
-instance_types           = ["t3.medium"]
+instance_types           = ["m5.large"]
