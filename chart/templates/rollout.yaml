@@ -10,8 +10,8 @@ spec:
       app: {{ .Values.name }}
   strategy:
     blueGreen: 
-      activeService: blue-green-rollouts-demo
-      previewService: blue-green-rollouts-demo-preview
+      activeService: {{ .Values.name }}
+      previewService: {{ .Values.name }}-preview
       autoPromotionEnabled: false
   revisionHistoryLimit: 2
   template:
