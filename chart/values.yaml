@@ -1,6 +1,6 @@
 replicas: 4
 name: blogs-service
-namespace: argocd
+namespace: app
 image: 802564302645.dkr.ecr.ap-southeast-1.amazonaws.com/blog-service
 #image: blog-service
 version: error
