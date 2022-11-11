@@ -134,11 +134,13 @@ resource "helm_release" "argo-rollouts" {
   chart               = "argo-rollouts"
   namespace           = "argo-rollouts"
   create_namespace    = true
-  lint                = true
-  set {
-        name  = "dashboard.service.type"
-        value = "LoadBalancer"
-      }    
+  lint                = true  
+}
+
+resource "kubernetes_namespace" "app" {
+  metadata {
+    name = "app"
+  }
 }
 
 # Local chart
