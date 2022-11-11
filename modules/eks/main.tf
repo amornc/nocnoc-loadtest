@@ -109,6 +109,15 @@ module "eks_blueprints_kubernetes_addons" {
   argocd_manage_add_ons = true # Indicates that ArgoCD is responsible for managing/deploying add-ons
 
   argocd_applications     = {
+
+    argo-rollouts = {
+      path                = "argo-rollouts"
+      create_namespace    = true
+      namespace           = "argo-rollouts"
+      repo_url            = "https://github.com/amornc/nocnoc-loadtest.git"
+      add_on_application  = false # Indicates the root add-on application.
+    }
+    
     helm-blue-green = {
       path                = "helm-blue-green"
       create_namespace    = true
@@ -117,13 +126,7 @@ module "eks_blueprints_kubernetes_addons" {
       add_on_application  = true # Indicates the root add-on application.
     }
 
-    argo-rollouts = {
-      path                = "argo-rollouts"
-      create_namespace    = true
-      namespace           = "argo-rollouts"
-      repo_url            = "https://github.com/amornc/nocnoc-loadtest.git"
-      add_on_application  = true # Indicates the root add-on application.
-    }
+    
   }
   
   argo_rollouts_helm_config = {    # <-- Add this config to expose as LoadBalancer
