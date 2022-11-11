@@ -96,6 +96,8 @@ module "eks_blueprints_kubernetes_addons" {
   # This example shows how to set default ArgoCD Admin Password using SecretsManager with Helm Chart set_sensitive values.
   argocd_helm_config = {
     timeout          = "1200"
+    create_namespace    = true
+    repository       = "https://argoproj.github.io/argo-helm"
     set_sensitive = [
       {
         name  = "configs.secret.argocdServerAdminPassword"
@@ -109,12 +111,15 @@ module "eks_blueprints_kubernetes_addons" {
   argocd_applications     = {
     helm-blue-green = {
       path                = "helm-blue-green"
+      create_namespace    = true
+      namespace           = "app"
       repo_url            = "https://github.com/amornc/nocnoc-loadtest.git"
       add_on_application  = true # Indicates the root add-on application.
     }
   }
   
   argo_rollouts_helm_config = {    # <-- Add this config to expose as LoadBalancer
+    repository       = "https://argoproj.github.io/argo-helm"
     set = [
       {
         name  = "dashboard.service.type"
