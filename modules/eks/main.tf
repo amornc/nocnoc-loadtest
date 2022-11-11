@@ -116,10 +116,20 @@ module "eks_blueprints_kubernetes_addons" {
       repo_url            = "https://github.com/amornc/nocnoc-loadtest.git"
       add_on_application  = true # Indicates the root add-on application.
     }
+
+    argo-rollouts = {
+      path                = "argo-rollouts"
+      create_namespace    = true
+      namespace           = "argo-rollouts"
+      repo_url            = "https://github.com/amornc/nocnoc-loadtest.git"
+      add_on_application  = true # Indicates the root add-on application.
+    }
   }
   
   argo_rollouts_helm_config = {    # <-- Add this config to expose as LoadBalancer
-    repository       = "https://argoproj.github.io/argo-helm"
+#    repository       = "https://argoproj.github.io/argo-helm"
+#    create_namespace    = true
+#    namespace           = "app"
     set = [
       {
         name  = "dashboard.service.type"
