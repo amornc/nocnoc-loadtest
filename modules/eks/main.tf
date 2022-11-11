@@ -58,9 +58,9 @@ module "eks_blueprints_kubernetes_addons" {
 
   # EKS Managed Add-ons
   enable_amazon_eks_vpc_cni            = true
-#  enable_amazon_eks_coredns            = true
+  enable_amazon_eks_coredns            = true
   enable_amazon_eks_kube_proxy         = true
-#  enable_amazon_eks_aws_ebs_csi_driver = true
+  enable_amazon_eks_aws_ebs_csi_driver = true
 
   # Add-ons
   enable_aws_load_balancer_controller = true
@@ -95,7 +95,7 @@ module "eks_blueprints_kubernetes_addons" {
   enable_argocd = true
   # This example shows how to set default ArgoCD Admin Password using SecretsManager with Helm Chart set_sensitive values.
   argocd_helm_config = {
-#    timeout          = "1200"
+    timeout          = "1200"
     set_sensitive = [
       {
         name  = "configs.secret.argocdServerAdminPassword"
@@ -109,12 +109,8 @@ module "eks_blueprints_kubernetes_addons" {
   argocd_applications     = {
     helm-blue-green = {
       path                = "helm-blue-green"
-#      lint                = true
       repo_url            = "https://github.com/amornc/nocnoc-loadtest.git"
-#      values              = {}
       add_on_application  = true # Indicates the root add-on application.
-#      add_on_application  = false # Indicates the root add-on application.
-
     }
   }
   
