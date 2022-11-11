@@ -4,7 +4,7 @@ installCRDs: true
 keepCRDs: true
 
 # -- `false` runs controller in namespaced mode (does not require cluster RBAC)
-clusterInstall: true
+clusterInstall: false
 
 # -- flag to enable creation of cluster aggregate roles (requires cluster RBAC)
 createClusterAggregateRoles: true
