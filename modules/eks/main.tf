@@ -68,7 +68,7 @@ module "eks_blueprints_kubernetes_addons" {
   #enable_aws_cloudwatch_metrics       = true
   #enable_kubecost                     = true
   #enable_kube_prometheus_stack        = true
-  enable_argo_rollouts                = true
+  #enable_argo_rollouts                = true
 
   enable_cluster_autoscaler = true
   cluster_autoscaler_helm_config = {
@@ -110,34 +110,39 @@ module "eks_blueprints_kubernetes_addons" {
 
   argocd_applications     = {
 
-    argo-rollouts = {
-      path                = "argo-rollouts"
-      create_namespace    = true
-      namespace           = "argo-rollouts"
-      repo_url            = "https://github.com/amornc/nocnoc-loadtest.git"
-      add_on_application  = false # Indicates the root add-on application.
-    }
-    
     helm-blue-green = {
       path                = "helm-blue-green"
-      create_namespace    = true
-      namespace           = "app"
       repo_url            = "https://github.com/amornc/nocnoc-loadtest.git"
       add_on_application  = true # Indicates the root add-on application.
     }
-
-    
+ 
   }
-  
-  argo_rollouts_helm_config = {    # <-- Add this config to expose as LoadBalancer
-#    repository       = "https://argoproj.github.io/argo-helm"
-#    create_namespace    = true
-#    namespace           = "app"
-    set = [
-      {
+#  
+#  argo_rollouts_helm_config = {    # <-- Add this config to expose as LoadBalancer
+#    set = [
+#      {
+#        name  = "dashboard.service.type"
+#        value = "LoadBalancer"
+#      },
+#    ]
+#  }
+}
+
+resource "helm_release" "argo-rollouts" {
+  name                = "argo-rollouts"
+  repository          = "https://argoproj.github.io/argo-helm"
+  chart               = "argo-rollouts"
+  namespace           = "argo-rollouts"
+  create_namespace    = true
+  lint                = true
+  set {
         name  = "dashboard.service.type"
         value = "LoadBalancer"
-      },
-    ]
-  }
+      }    
 }
+
+# Local chart
+#resource "helm_release" "example" {
+#  name       = "my-local-chart"
+#  chart      = "./charts/example"
+#}
