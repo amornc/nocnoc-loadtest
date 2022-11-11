@@ -110,7 +110,7 @@ module "eks_blueprints_kubernetes_addons" {
 
   argocd_applications     = {
 
-    helm-blue-green = {
+    blogs-service = {
       path                = "chart"
       repo_url            = "https://github.com/amornc/nocnoc-loadtest.git"
       add_on_application  = true # Indicates the root add-on application.
