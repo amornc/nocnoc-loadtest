@@ -9,8 +9,6 @@ spec:
   ports:
   - port: {{ .Values.service.port }}
     protocol: {{ .Values.service.protocol }}
-    targetPort: http
-    name: http
   selector:
     app: {{ .Values.name }}
 #  type: {{ .Values.service.type }}
