@@ -133,7 +133,6 @@ resource "helm_release" "argo-rollouts" {
   chart               = "argo-rollouts"
   namespace           = "argo-rollouts"
   create_namespace    = true
-  lint                = true  
 }
 
 resource "kubernetes_namespace" "app" {
