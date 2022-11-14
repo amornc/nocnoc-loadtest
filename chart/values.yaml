@@ -3,8 +3,8 @@ name: blogs-service
 namespace: app
 image: 802564302645.dkr.ecr.ap-southeast-1.amazonaws.com/blog-service
 #image: blog-service
-#version: error #Stable version
-version: nginx #Preview version
+version: error #Stable version
+#version: nginx #Preview version
 #version: m1
 container:
   port: 8080
