@@ -13,8 +13,8 @@ spec:
       activeService: {{ .Values.name }}
       previewService: {{ .Values.name }}-preview
       autoPromotionEnabled: false
+      scaleDownDelaySeconds: 0
       scaleDownDelayRevisionLimit: 2
-      abortScaleDownDelaySeconds: 0
   revisionHistoryLimit: 2
   template:
     metadata:
