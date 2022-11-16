@@ -6,6 +6,10 @@ image: 802564302645.dkr.ecr.ap-southeast-1.amazonaws.com/blog-service
 version: error #Stable version
 #version: nginx2 #Preview version
 #version: m1
+autoPromotionEnabled: false
+abortScaleDownDelaySeconds: 0
+scaleDownDelayRevisionLimit: 2
+revisionHistoryLimit: 3
 container:
   port: 8080
 service:

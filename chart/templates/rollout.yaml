@@ -12,10 +12,10 @@ spec:
     blueGreen: 
       activeService: {{ .Values.name }}
       previewService: {{ .Values.name }}-preview
-      autoPromotionEnabled: false
-      abortScaleDownDelaySeconds: 0
-      scaleDownDelayRevisionLimit: 2
-  revisionHistoryLimit: 3
+      autoPromotionEnabled: {{ .Values.autoPromotionEnabled }}
+      abortScaleDownDelaySeconds: {{ .Values.abortScaleDownDelaySeconds }}
+      scaleDownDelayRevisionLimit: {{ .Values.scaleDownDelayRevisionLimit }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   template:
     metadata:
       labels:
@@ -24,6 +24,7 @@ spec:
       containers:
       - name: {{ .Values.name }}
         image: "{{ .Values.image }}:{{ .Values.version | default .Chart.AppVersion }}"
+        imagePullPolicy: Always
         ports:
         - containerPort: {{ .Values.container.port }}
         envFrom:
