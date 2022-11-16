@@ -14,6 +14,7 @@ spec:
       previewService: {{ .Values.name }}-preview
       autoPromotionEnabled: false
       scaleDownDelayRevisionLimit: 2
+      abortScaleDownDelaySeconds: 0
   revisionHistoryLimit: 2
   template:
     metadata:
