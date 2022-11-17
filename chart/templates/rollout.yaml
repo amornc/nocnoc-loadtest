@@ -12,9 +12,8 @@ spec:
     blueGreen: 
       activeService: {{ .Values.name }}
       previewService: {{ .Values.name }}-preview
-#      previewReplicaCount: {{ .Values.previewReplicaCount }}
       autoPromotionEnabled: {{ .Values.autoPromotionEnabled }}
-#      abortScaleDownDelaySeconds: {{ .Values.abortScaleDownDelaySeconds }}
+      scaleDownDelaySeconds: {{ .Values.scaleDownDelaySeconds }}
       scaleDownDelayRevisionLimit: {{ .Values.scaleDownDelayRevisionLimit }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   template:

@@ -7,10 +7,9 @@ image: 802564302645.dkr.ecr.ap-southeast-1.amazonaws.com/blog-service
 version: nginx3 #Preview version
 #version: m1
 autoPromotionEnabled: false
-abortScaleDownDelaySeconds: 0
+scaleDownDelaySeconds: 300
 scaleDownDelayRevisionLimit: 2
 revisionHistoryLimit: 3
-#previewReplicaCount: 2
 container:
   port: 8080
 service:
