@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  CLUSTER_NAME: blue-green-cluster # Change to your cluster name
+  CLUSTER_NAME: snocko-demo-cluster # Change to your cluster name
   REGION: '${{ secrets.AWS_REGION }}'
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Configure Kubectl
-        uses: azure/setup-kubectl@v2.0
+        uses: azure/setup-kubectl@latest
         id: install 
         with:
           version: 'v1.23.6'   
