@@ -8,7 +8,6 @@ version: nginx2 #Preview version
 #version: nginx3 #Preview version
 #version: m1
 autoPromotionEnabled: false
-#scaleDownDelaySeconds: 300
 scaleDownDelayRevisionLimit: 2
 revisionHistoryLimit: 3
 container:

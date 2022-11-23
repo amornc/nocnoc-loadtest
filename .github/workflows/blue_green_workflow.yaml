@@ -42,4 +42,3 @@ jobs:
           kubectl argo rollouts version
       - name: List rollouts
         run: kubectl argo rollouts list rollouts --all-namespaces
-      - name: 
