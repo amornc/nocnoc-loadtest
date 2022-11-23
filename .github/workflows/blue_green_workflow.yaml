@@ -32,7 +32,7 @@ jobs:
       - name: Update KubeConfig
         continue-on-error: true
         run: |
-          aws eks --region $REGION update-kubeconfig --name $CLUSTER_NAME      
+          aws eks --region $REGION update-kubeconfig --name $CLUSTER_NAME
       - name: argo-rollouts plugin install 
         id: argo_rollouts_plugin_install
         run: |
@@ -53,7 +53,7 @@ jobs:
         run: |
           export ROLLOUT_NAME=$(kubectl argo rollouts list rollouts --all-namespaces | grep Paused | awk -F'|' 'FNR>1{print $1}' | awk '{print $2}')
           export NAMESPACES=$(kubectl argo rollouts list rollouts --all-namespaces | grep Paused | awk -F'|' 'FNR>1{print $1}' | awk '{print $1}')
-          kubectl argo rollouts promote -n $NAMESPACES $ROLLOUT_NAME
+          kubectl argo rollouts promote $ROLLOUT_NAME
       - name: Get rollouts status
         continue-on-error: true
         run: |
