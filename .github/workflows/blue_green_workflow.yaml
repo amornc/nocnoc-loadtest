@@ -41,6 +41,7 @@ jobs:
           sudo mv ./kubectl-argo-rollouts-linux-amd64 /usr/local/bin/kubectl-argo-rollouts
           kubectl argo rollouts version
       - name: List rollouts
+        continue-on-error: true
         run: kubectl argo rollouts list rollouts --all-namespaces
       - name: Get rollouts status
         continue-on-error: true
@@ -53,7 +54,7 @@ jobs:
         run: |
           export ROLLOUT_NAME=$(kubectl argo rollouts list rollouts --all-namespaces | grep Paused | awk -F'|' 'FNR>1{print $1}' | awk '{print $2}')
           export NAMESPACES=$(kubectl argo rollouts list rollouts --all-namespaces | grep Paused | awk -F'|' 'FNR>1{print $1}' | awk '{print $1}')
-          kubectl argo rollouts status --namespace $NAMESPACES $ROLLOUT_NAME
+          kubectl argo rollouts status --timeout 10s --namespace $NAMESPACES $ROLLOUT_NAME
       - name: Promote rollouts
         run: |
           export ROLLOUT_NAME=$(kubectl argo rollouts list rollouts --all-namespaces | grep Paused | awk -F'|' 'FNR>1{print $1}' | awk '{print $2}')
