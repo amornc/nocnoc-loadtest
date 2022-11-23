@@ -5,7 +5,7 @@ image: 802564302645.dkr.ecr.ap-southeast-1.amazonaws.com/blog-service
 #image: blog-service
 #version: error #Stable version
 #version: nginx2 #Preview version
-#version: nginx3 #Preview version
+version: nginx3 #Preview version
 #version: m1
 autoPromotionEnabled: false
 scaleDownDelayRevisionLimit: 2
