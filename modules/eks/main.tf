@@ -127,18 +127,17 @@ module "eks_blueprints_kubernetes_addons" {
 #  }
 }
 
+resource "kubernetes_namespace" "app" {
+  metadata {
+    name = "app"
+  }
+}
 resource "helm_release" "argo-rollouts" {
   name                = "argo-rollouts"
   repository          = "https://argoproj.github.io/argo-helm"
   chart               = "argo-rollouts"
   namespace           = "argo-rollouts"
   create_namespace    = true
-}
-
-resource "kubernetes_namespace" "app" {
-  metadata {
-    name = "app"
-  }
 }
 
 # Local chart

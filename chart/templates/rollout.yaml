@@ -13,7 +13,7 @@ spec:
       activeService: {{ .Values.name }}
       previewService: {{ .Values.name }}-preview
       autoPromotionEnabled: {{ .Values.autoPromotionEnabled }}
-      scaleDownDelaySeconds: {{ .Values.scaleDownDelaySeconds }}
+#      scaleDownDelaySeconds: {{ .Values.scaleDownDelaySeconds }}
       scaleDownDelayRevisionLimit: {{ .Values.scaleDownDelayRevisionLimit }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   template:
