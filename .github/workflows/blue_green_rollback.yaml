@@ -62,7 +62,7 @@ jobs:
         id: history_id
         continue-on-error: true
         run: |
-          echo "HISTORY-ID=$(argocd app history $(argocd app list --output name))" >> $GITHUB_OUTPUT
+          echo "::set-output HISTORY-ID=$(argocd app history $(argocd app list --output name))" >> $GITHUB_OUTPUT
       - name: Rollback
         run: |
           export APP_NAME=$(argocd app list --output name)
