@@ -4,8 +4,9 @@ on:
   release:
     types:
       - published
-    branches:
-      - main
+  #push:
+  #  branches:
+  #    - main
   workflow_dispatch:
 
 env:
@@ -40,6 +41,18 @@ jobs:
           chmod +x ./kubectl-argo-rollouts-linux-amd64
           sudo mv ./kubectl-argo-rollouts-linux-amd64 /usr/local/bin/kubectl-argo-rollouts
           kubectl argo rollouts version
+      - name: argocd cli install 
+        id: argocd_cli_install
+        run: |
+          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+          sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+          rm argocd-linux-amd64
+      - name: get argocd login
+        run: |
+          kubectl config set-context --current --namespace=argocd
+      - name: get argocd server
+        run: |
+          argocd login --core
       - name: List rollouts
         continue-on-error: true
         run: kubectl argo rollouts list rollouts --all-namespaces
@@ -65,4 +78,12 @@ jobs:
         run: |
           export ROLLOUT_NAME=$(kubectl argo rollouts list rollouts --all-namespaces | awk -F'|' 'FNR>1{print $1}' | awk '{print $2}')
           export NAMESPACES=$(kubectl argo rollouts list rollouts --all-namespaces | awk -F'|' 'FNR>1{print $1}' | awk '{print $1}')
-          kubectl argo rollouts get rollouts --namespace $NAMESPACES $ROLLOUT_NAME
+          kubectl argo rollouts get rollouts --namespace $NAMESPACES $ROLLOUT_NAME      
+      - name: argocd get application
+        continue-on-error: true
+        run: |
+          argocd app get $(argocd app list --output name)
+      - name: argocd sync application
+        id: argocd_sync
+        run: |
+          argocd app sync $(argocd app list --output name) --assumeYes
