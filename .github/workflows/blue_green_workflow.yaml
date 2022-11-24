@@ -53,6 +53,14 @@ jobs:
       - name: get argocd server
         run: |
           argocd login --core
+      - name: argocd get application
+        continue-on-error: true
+        run: |
+          argocd app get $(argocd app list --output name)
+      - name: argocd sync application
+        id: argocd_sync
+        run: |
+          argocd app sync $(argocd app list --output name) --assumeYes
       - name: List rollouts
         continue-on-error: true
         run: kubectl argo rollouts list rollouts --all-namespaces
@@ -65,8 +73,8 @@ jobs:
       - name: Get status
         continue-on-error: true
         run: |
-          export ROLLOUT_NAME=$(kubectl argo rollouts list rollouts --all-namespaces | grep Paused | awk '{print $2}')
-          export NAMESPACES=$(kubectl argo rollouts list rollouts --all-namespaces | grep Paused | awk '{print $1}')
+          export ROLLOUT_NAME=$(kubectl argo rollouts list rollouts --all-namespaces | grep Paused | awk -F'|' 'FNR>1{print $1}' | awk '{print $2}')
+          export NAMESPACES=$(kubectl argo rollouts list rollouts --all-namespaces | grep Paused | awk -F'|' 'FNR>1{print $1}' | awk '{print $1}')
           kubectl argo rollouts status --timeout 60s --namespace $NAMESPACES $ROLLOUT_NAME
       - name: Promote rollouts
         run: |
@@ -78,12 +86,4 @@ jobs:
         run: |
           export ROLLOUT_NAME=$(kubectl argo rollouts list rollouts --all-namespaces | awk -F'|' 'FNR>1{print $1}' | awk '{print $2}')
           export NAMESPACES=$(kubectl argo rollouts list rollouts --all-namespaces | awk -F'|' 'FNR>1{print $1}' | awk '{print $1}')
-          kubectl argo rollouts get rollouts --namespace $NAMESPACES $ROLLOUT_NAME      
-      - name: argocd get application
-        continue-on-error: true
-        run: |
-          argocd app get $(argocd app list --output name)
-      - name: argocd sync application
-        id: argocd_sync
-        run: |
-          argocd app sync $(argocd app list --output name) --assumeYes
+          kubectl argo rollouts get rollouts --namespace $NAMESPACES $ROLLOUT_NAME
