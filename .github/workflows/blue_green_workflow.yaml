@@ -2,8 +2,7 @@ name: Blue/Green Deployment Workflow
 
 on:
   release:
-    types:
-      - published
+    types: [published]
   #push:
   #  branches:
   #    - main

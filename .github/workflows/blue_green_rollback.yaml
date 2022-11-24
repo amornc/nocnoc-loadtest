@@ -2,11 +2,20 @@ name: Blue/Green Rollback Workflow
 
 on:
   release:
-    types:
-      - unpublished
+    types: [unpublished]
     #branches:
     #  - main
   workflow_dispatch:
+    outputs:
+      HISTORY_ID:
+        description: "argocd app history id"
+        value: ${{ steps.history_id.outputs.HISTORY-ID }}
+    inputs:
+      ARGOCD_ROLLBACK:
+        description: 'argocd app history for rollback'
+        required: true
+        type: string
+        default: '1'
 
 env:
   CLUSTER_NAME: snocko-demo-cluster # Change to your cluster name
@@ -50,12 +59,17 @@ jobs:
         run: |
           argocd app get $(argocd app list --output name)
       - name: Get argocd app history
+        id: history_id
         continue-on-error: true
         run: |
-          argocd app history $(argocd app list --output name)
+          echo "HISTORY-ID=$(argocd app history $(argocd app list --output name))" >> $GITHUB_OUTPUT
       - name: Rollback
         run: |
           export APP_NAME=$(argocd app list --output name)
-          export HISTORY_ID=$(argocd app history $(argocd app list argocd app list --output name) | awk 'END{print}' | awk '{print $1}')
-          argocd app rollback $APP_NAME 12
+          #export HISTORY-ID=$(argocd app history $(argocd app list argocd app list --output name) | awk 'END{print}' | awk '{print $1}')
+          argocd app rollback $APP_NAME ${{ github.event.inputs.ARGOCD_ROLLBACK }}
+      - name: argocd get application
+        continue-on-error: true
+        run: |
+          argocd app get $(argocd app list --output name)
           
