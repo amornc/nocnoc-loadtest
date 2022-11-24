@@ -12,10 +12,10 @@ on:
         required: true
         type: string
         default: '1'
-    outputs:
-      HISTORY_ID:
-        description: "argocd app history id"
-        value: ${{ steps.history_id.outputs.HISTORY-ID }}
+#    outputs:
+#      HISTORY_ID:
+#        description: "argocd app history id"
+#        value: ${{ steps.history_id.outputs.HISTORY-ID }}
 
 env:
   CLUSTER_NAME: snocko-demo-cluster # Change to your cluster name
