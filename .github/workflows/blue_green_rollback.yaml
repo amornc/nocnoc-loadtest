@@ -57,5 +57,5 @@ jobs:
         run: |
           export APP_NAME=$(argocd app list --output name)
           export HISTORY_ID=$(argocd app history $(argocd app list argocd app list --output name) | awk 'END{print}' | awk '{print $1}')
-          argocd app rollback $APP_NAME $HISTORY_ID
+          argocd app rollback $APP_NAME 12
           
