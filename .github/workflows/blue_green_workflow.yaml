@@ -70,11 +70,11 @@ jobs:
           export ROLLOUT_NAME=$(kubectl argo rollouts list rollouts --all-namespaces | awk -F'|' 'FNR>1{print $1}' | awk '{print $2}')
           export NAMESPACES=$(kubectl argo rollouts list rollouts --all-namespaces | awk -F'|' 'FNR>1{print $1}' | awk '{print $1}')
           kubectl argo rollouts get rollouts --namespace $NAMESPACES $ROLLOUT_NAME
-      - name: Get status
+      - name: Get status 60s
         continue-on-error: true
         run: |
-          export ROLLOUT_NAME=$(kubectl argo rollouts list rollouts --all-namespaces | grep Paused | awk -F'|' 'FNR>1{print $1}' | awk '{print $2}')
-          export NAMESPACES=$(kubectl argo rollouts list rollouts --all-namespaces | grep Paused | awk -F'|' 'FNR>1{print $1}' | awk '{print $1}')
+          export ROLLOUT_NAME=$(kubectl argo rollouts list rollouts --all-namespaces | awk -F'|' 'FNR>1{print $1}' | awk '{print $2}')
+          export NAMESPACES=$(kubectl argo rollouts list rollouts --all-namespaces | awk -F'|' 'FNR>1{print $1}' | awk '{print $1}')
           kubectl argo rollouts status --timeout 60s --namespace $NAMESPACES $ROLLOUT_NAME
       - name: Promote rollouts
         run: |
