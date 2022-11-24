@@ -46,14 +46,16 @@ jobs:
         run: |
           argocd login --core
       - name: argocd get application
+        continue-on-error: true
         run: |
-          argocd app get $(argocd app list argocd app list --output name)
+          argocd app get $(argocd app list --output name)
       - name: Get argocd app history
+        continue-on-error: true
         run: |
-          argocd app history $(argocd app list argocd app list --output name)
+          argocd app history $(argocd app list --output name)
       - name: Rollback
         run: |
-          export APP_NAME=$(argocd app get $(argocd app list argocd app list --output name))
+          export APP_NAME=$(argocd app list --output name)
           export HISTORY_ID=$(argocd app history $(argocd app list argocd app list --output name) | awk 'END{print}' | awk '{print $1}')
           argocd app rollback $APP_NAME $HISTORY_ID
           
