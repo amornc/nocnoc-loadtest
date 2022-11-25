@@ -6,18 +6,12 @@ on:
     #branches:
     #  - main
   workflow_dispatch:
-#  workflow_call:
-#    inputs:
-#      ARGOCD_ROLLBACK:
-#        description: 'argocd app history for rollback'
+   inputs:
+      name:
+        description: 'argocd app history for rollback'
 #        required: true
-#        type: string
-#        default: '1'
-#    outputs:
-#      HISTORY_ID:
-#        description: "argocd app history id"
-#        value: ${{ jobs.rollback1.outputs.HISTORY-ID }}
-#        value: ${{ steps.history_id.outputs.HISTORY-ID }}
+        type: string
+        default: 'Octocat'
 
 env:
   CLUSTER_NAME: snocko-demo-cluster # Change to your cluster name
@@ -75,5 +69,11 @@ jobs:
           path: ./history-id
           if-no-files-found: error
           retention-days: 30
+      - name: test input
+        run: |
+          USER_INPUT=${{ github.event.inputs.name }}
+          # Use user input or fall back to "Octocat"
+          NAME=${USER_INPUT:-"Octocat"}
+          # use $NAME in your action, value will be always provided
 
           
