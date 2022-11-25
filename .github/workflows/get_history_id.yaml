@@ -73,7 +73,8 @@ jobs:
         run: |
           USER_INPUT=${{ github.event.inputs.name }}
           # Use user input or fall back to "Octocat"
-          NAME=${USER_INPUT:-"Octocat"}
+          NAME=${USER_INPUT:-"snocko"}
           # use $NAME in your action, value will be always provided
+
 
           
