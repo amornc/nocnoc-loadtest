@@ -17,7 +17,7 @@ on:
       HISTORY_ID:
         description: "argocd app history id"
 #        value: ${{ jobs.rollback1.outputs.HISTORY-ID }}
-        value: ${{ steps.history_id.outputs.HISTORY-ID }}
+        value: ${{ jobs.history_id.outputs.HISTORY-ID }}
 
 env:
   CLUSTER_NAME: snocko-demo-cluster # Change to your cluster name
