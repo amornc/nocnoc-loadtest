@@ -10,8 +10,8 @@ on:
       ARGOCD_ROLLBACK:
         description: 'argocd app history for rollback'
         required: true
-        type: string
-        default: '${{ secrets.AWS_REGION }}'
+#        type: string
+        default: ${{ secrets.AWS_REGION }}
 #    outputs:
 #      HISTORY_ID:
 #        description: "argocd app history id"
