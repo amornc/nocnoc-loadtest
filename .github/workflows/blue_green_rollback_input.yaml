@@ -1,4 +1,4 @@
-name: Blue/Green Rollback Workflow
+name: Blue/Green Rollback input Workflow
 
 on:
   release:
@@ -24,7 +24,7 @@ env:
 jobs:
   
   get_outputs:
-    uses: amornc/nocnoc-loadtest/.github/workflows/blue_green_rollback_output.yaml@main
+    uses: ./.github/workflows/blue_green_rollback_output.yaml
 
   rollback1:
     runs-on: ubuntu-latest
