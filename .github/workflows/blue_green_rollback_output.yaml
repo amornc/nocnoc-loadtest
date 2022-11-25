@@ -17,7 +17,7 @@ on:
       HISTORY_ID:
         description: "argocd app history id"
 #        value: ${{ jobs.rollback1.outputs.HISTORY-ID }}
-        value: ${{ jobs.history_id.outputs.HISTORY-ID }}
+        value: ${{ steps.history_id.outputs.HISTORY-ID }}
 
 env:
   CLUSTER_NAME: snocko-demo-cluster # Change to your cluster name
@@ -66,7 +66,7 @@ jobs:
         id: history_id
         continue-on-error: true
         run: |
-          echo "HISTORY-ID=$(argocd app history $(argocd app list --output name))" >> $GITHUB_OUTPUT
+          echo "::set-output name=HISTORY-ID::$(argocd app history $(argocd app list --output name))" >> $GITHUB_OUTPUT
 #      - name: Rollback2
 #        run: |
 #          export APP_NAME=$(argocd app list --output name)
