@@ -5,7 +5,8 @@ on:
     types: [unpublished]
     #branches:
     #  - main
-  workflow_call:
+  workflow_dispatch:
+#  workflow_call:
 #    inputs:
 #      ARGOCD_ROLLBACK:
 #        description: 'argocd app history for rollback'
