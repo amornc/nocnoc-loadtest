@@ -5,17 +5,17 @@ on:
     types: [unpublished]
     #branches:
     #  - main
-  workflow_dispatch:
-    inputs:
-      ARGOCD_ROLLBACK:
-        description: 'argocd app history for rollback'
-        required: true
-        type: string
-        default: '1'
-#    outputs:
-#      HISTORY_ID:
-#        description: "argocd app history id"
-#        value: ${{ steps.history_id.outputs.HISTORY-ID }}
+  workflow_call:
+#    inputs:
+#      ARGOCD_ROLLBACK:
+#        description: 'argocd app history for rollback'
+#        required: true
+#        type: string
+#        default: '1'
+    outputs:
+      HISTORY_ID:
+        description: "argocd app history id"
+        value: ${{ jobs.rollback1.outputs.HISTORY-ID }}
 
 env:
   CLUSTER_NAME: snocko-demo-cluster # Change to your cluster name
@@ -23,9 +23,11 @@ env:
 
 jobs:
 
-  rollback:
+  rollback1:
     runs-on: ubuntu-latest
     name: Argocd Rollback
+    outputs:
+      HISTORY-ID: ${{ steps.history_id.outputs.HISTORY-ID }}
     steps:
       - name: Initial AWS Account
         uses: aws-actions/configure-aws-credentials@master
@@ -62,14 +64,14 @@ jobs:
         id: history_id
         continue-on-error: true
         run: |
-          echo "::set-output HISTORY-ID=$(argocd app history $(argocd app list --output name))" >> $GITHUB_OUTPUT
-      - name: Rollback
-        run: |
-          export APP_NAME=$(argocd app list --output name)
-          #export HISTORY-ID=$(argocd app history $(argocd app list argocd app list --output name) | awk 'END{print}' | awk '{print $1}')
-          argocd app rollback $APP_NAME ${{ github.event.inputs.ARGOCD_ROLLBACK }}
-      - name: argocd get application
-        continue-on-error: true
-        run: |
-          argocd app get $(argocd app list --output name)
+          echo "HISTORY-ID=$(argocd app history $(argocd app list --output name))" >> $GITHUB_OUTPUT
+#      - name: Rollback2
+#        run: |
+#          export APP_NAME=$(argocd app list --output name)
+#          #export HISTORY-ID=$(argocd app history $(argocd app list argocd app list --output name) | awk 'END{print}' | awk '{print $1}')
+#          argocd app rollback $APP_NAME ${{ github.event.inputs.ARGOCD_ROLLBACK }}
+#      - name: argocd get application
+#        continue-on-error: true
+#        run: |
+#          argocd app get $(argocd app list --output name)
           
