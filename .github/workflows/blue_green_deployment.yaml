@@ -86,3 +86,16 @@ jobs:
           export ROLLOUT_NAME=$(kubectl argo rollouts list rollouts --all-namespaces | awk -F'|' 'FNR>1{print $1}' | awk '{print $2}')
           export NAMESPACES=$(kubectl argo rollouts list rollouts --all-namespaces | awk -F'|' 'FNR>1{print $1}' | awk '{print $1}')
           kubectl argo rollouts get rollouts --namespace $NAMESPACES $ROLLOUT_NAME
+      - name: Get argocd app history
+        id: history_id
+        continue-on-error: true
+        run: |
+          argocd app history $(argocd app list --output name) >> history-id
+      - name: Upload history_id
+        uses: actions/upload-artifact@v2
+        continue-on-error: true
+        with:
+          name: history_id
+          path: ./history_id
+          if-no-files-found: error
+          retention-days: 30
