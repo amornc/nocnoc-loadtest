@@ -24,7 +24,7 @@ env:
 jobs:
   
   get_outputs:
-    uses: amornc/nocnoc-loadtest/blob/main/.github/workflows/blue_green_rollback_output.yaml@main
+    uses: ./blue_green_rollback_output.yaml@main
 
   rollback1:
     runs-on: ubuntu-latest
