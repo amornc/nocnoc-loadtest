@@ -6,12 +6,6 @@ on:
     #branches:
     #  - main
   workflow_dispatch:
-   inputs:
-      name:
-        description: ${{github.actor}}
-#        required: true
-        type: string
-        default: ''
 
 env:
   CLUSTER_NAME: snocko-demo-cluster # Change to your cluster name
@@ -69,12 +63,7 @@ jobs:
           path: ./history-id
           if-no-files-found: error
           retention-days: 30
-      - name: test input
-        run: |
-          USER_INPUT=${{ github.event.inputs.name }}
-          # Use user input or fall back to "Octocat"
-          NAME=${USER_INPUT:-"snocko"}
-          # use $NAME in your action, value will be always provided
+
 
 
           
