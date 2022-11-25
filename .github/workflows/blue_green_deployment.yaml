@@ -95,7 +95,7 @@ jobs:
         uses: actions/upload-artifact@v2
         continue-on-error: true
         with:
-          name: history_id
-          path: ./history_id
+          name: history-id
+          path: ./history-id
           if-no-files-found: error
           retention-days: 30
