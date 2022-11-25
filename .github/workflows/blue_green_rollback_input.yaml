@@ -9,7 +9,7 @@ on:
     inputs:
       ARGOCD_ROLLBACK:
         description: 'argocd app history for rollback'
-#        required: true
+        required: true
         type: string
         default: '1'
 #    outputs:
@@ -29,6 +29,7 @@ jobs:
   rollback1:
     runs-on: ubuntu-latest
     name: Argocd Rollback
+    needs: [get_outputs]
     steps:
       - run: echo ${{ needs.get_outputs.outputs.HISTORY_ID }}
       - name: Initial AWS Account
