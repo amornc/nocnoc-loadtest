@@ -8,10 +8,10 @@ on:
   workflow_dispatch:
    inputs:
       name:
-        description: 'argocd app history for rollback'
+        description: ${{github.actor}}
 #        required: true
         type: string
-#        default: 'Octocat'
+        default: ''
 
 env:
   CLUSTER_NAME: snocko-demo-cluster # Change to your cluster name
