@@ -16,7 +16,8 @@ on:
     outputs:
       HISTORY_ID:
         description: "argocd app history id"
-        value: ${{ jobs.rollback1.outputs.HISTORY-ID }}
+#        value: ${{ jobs.rollback1.outputs.HISTORY-ID }}
+        value: ${{ steps.history_id.outputs.HISTORY-ID }}
 
 env:
   CLUSTER_NAME: snocko-demo-cluster # Change to your cluster name
@@ -27,8 +28,8 @@ jobs:
   rollback1:
     runs-on: ubuntu-latest
     name: Argocd Rollback output
-    outputs:
-      HISTORY-ID: ${{ steps.history_id.outputs.HISTORY-ID }}
+#    outputs:
+#      HISTORY-ID: ${{ steps.history_id.outputs.HISTORY-ID }}
     steps:
       - name: Initial AWS Account
         uses: aws-actions/configure-aws-credentials@v1
