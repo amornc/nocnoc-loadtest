@@ -28,12 +28,12 @@ jobs:
 
   rollback1:
     runs-on: ubuntu-latest
-    name: Argocd Rollback
+    name: Argocd Rollback inputs
     needs: [get_outputs]
     steps:
       - run: echo ${{ needs.get_outputs.outputs.HISTORY_ID }}
       - name: Initial AWS Account
-        uses: aws-actions/configure-aws-credentials@master
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
