@@ -11,7 +11,7 @@ on:
         description: 'argocd app history for rollback'
 #        required: true
         type: string
-        default: 'Octocat'
+#        default: 'Octocat'
 
 env:
   CLUSTER_NAME: snocko-demo-cluster # Change to your cluster name
